@@ -20,14 +20,12 @@ def topology():
 
     iot = int(argv[1])
     for x in range(1, iot+1):
-        min_x = randint(1, 249)
-        max_x = randint(250, 500)
-        min_y = randint(1, 249)
-        max_y = randint(250, 500)
+        min_xy = randint(1, 249)
+        max_xy = randint(250, 500)
         min_v = randint(1, 10)
         max_v = randint(11, 20)
         net.addStation(f'iot{str(x).zfill(3)}', mac=f'00:00:00:00:00:{str(x).zfill(2)}', ip=f'10.0.0.{str(x)}/8',
-                      min_x=min_x, max_x=max_x, min_y=min_y, max_y=max_y, min_v=min_v, max_v=max_v)
+                      min_x=min_xy, max_x=max_xy, min_y=min_xy, max_y=max_xy, min_v=min_v, max_v=max_v)
 
     info('*** Adding APs\n')
     ap1 = net.addAccessPoint('ap1', ssid='new-ssid', mode='g', channel='1',
@@ -38,8 +36,7 @@ def topology():
 
     net.plotGraph(max_x=100, max_y=100)
 
-    net.setMobilityModel(time=0, model='RandomDirection', max_x=500, max_y=500,
-                         seed=20)
+    net.setMobilityModel(time=0, model='RandomDirection', max_x=500, max_y=500,seed=20)
 
     info("*** Starting network\n")
     net.build()
@@ -49,7 +46,7 @@ def topology():
     i = 0
     while True:
         i+=1
-        if i == 5000000: 
+        if i == 4000000: 
             for sta in net.stations:
                 x = sta.pos[0]
                 y = sta.pos[1]
